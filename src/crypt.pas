@@ -10,8 +10,8 @@ function EncryptDataB64(const AData: String; const Key: String = ''): String;
 function DecryptDataB64(const AData: String; const Key: String = ''): String;
 function EncryptDataHex(const AData: String; const Key: String = ''): String;
 function DecryptDataHex(const AData: String; const Key: String = ''): String;
-function EncryptDataBF2(const AData: String): String;
-function DecryptDataBF2(const AData: String): String;
+function EncryptDataBF2142(const AData: String): String;
+function DecryptDataBF2142(const AData: String): String;
 
 implementation
 
@@ -354,7 +354,7 @@ begin
   end;
 end;
 
-function EncryptDataBF2(const AData: String): String;
+function EncryptDataBF2142(const AData: String): String;
 var
   WS: String;
   WK: String;
@@ -364,7 +364,7 @@ begin
   Result := LowerCase(EncryptDataHex(WS, WK));
 end;
 
-function DecryptDataBF2(const AData: String): String;
+function DecryptDataBF2142(const AData: String): String;
 var
   WS: String;
   WK: String;

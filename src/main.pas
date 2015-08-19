@@ -40,8 +40,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   private
-    BF2Key:     String;
-    BF2SFKey:   String;
+    BF2142Key:     String;
+    BF2142NSKey:   String;
     procedure edt1keyChange(Sender: TObject);
     procedure edt2keyChange(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -100,12 +100,12 @@ const
   c_btn_close     = 'Close';
   c_txt_title     = 'Battlefield 2 :: Key Manager';
   c_txt_desc      = 'Hello, i''ll provide you some features to enter'#13#10'your license CD-KEY or key that you bought in Origin/Steam store.'#13#10#13#10'If you don''t have a license key then press ''Random'','#13#10'this allow you playing on non-ranked servers.';
-  c_txt_bf2key    = 'Please enter your Battlefield 2 license key below';
-  c_txt_bf2sfkey  = 'Please enter your Battlefield 2 Special Forces license key below';
-  c_txt_bf2unk    = 'The key state is unknown';
-  c_txt_bf2act    = 'This key is already active';
-  c_txt_bf2new    = 'You need to press ''Apply'' to actualize this key';
-  c_txt_bf2nope   = 'The key you have entered is invalid';}
+  c_txt_bf2142key    = 'Please enter your Battlefield 2 license key below';
+  c_txt_bf2142nskey  = 'Please enter your Battlefield 2 Special Forces license key below';
+  c_txt_bf2142unk    = 'The key state is unknown';
+  c_txt_bf2142act    = 'This key is already active';
+  c_txt_bf2142new    = 'You need to press ''Apply'' to actualize this key';
+  c_txt_bf2142nope   = 'The key you have entered is invalid';}
 
 procedure InitLocalization;
 
@@ -203,13 +203,13 @@ begin
     L_SET('btn.close',     GetResStr(ID, 5));
     L_SET('txt.title',     GetResStr(ID, 6));
     L_SET('txt.desc',      GetResStr(ID, 7));
-    L_SET('txt.bf2key',    GetResStr(ID, 8));
-    L_SET('txt.bf2sfkey',  GetResStr(ID, 9));
-    L_SET('txt.bf2unk',    GetResStr(ID, 10));
-    L_SET('txt.bf2act',    GetResStr(ID, 11));
-    L_SET('txt.bf2new',    GetResStr(ID, 12));
-    L_SET('txt.bf2inv',    GetResStr(ID, 13));
-    L_SET('txt.bf2nope',   GetResStr(ID, 14));
+    L_SET('txt.bf2142key',    GetResStr(ID, 8));
+    L_SET('txt.bf2142nskey',  GetResStr(ID, 9));
+    L_SET('txt.bf2142unk',    GetResStr(ID, 10));
+    L_SET('txt.bf2142act',    GetResStr(ID, 11));
+    L_SET('txt.bf2142new',    GetResStr(ID, 12));
+    L_SET('txt.bf2142inv',    GetResStr(ID, 13));
+    L_SET('txt.bf2142nope',   GetResStr(ID, 14));
   end;
 end;
 
@@ -226,13 +226,13 @@ begin
   L_SET('btn.close',     GetResStr(ID, 5));
   L_SET('txt.title',     GetResStr(ID, 6));
   L_SET('txt.desc',      GetResStr(ID, 7));
-  L_SET('txt.bf2key',    GetResStr(ID, 8));
-  L_SET('txt.bf2sfkey',  GetResStr(ID, 9));
-  L_SET('txt.bf2unk',    GetResStr(ID, 10));
-  L_SET('txt.bf2act',    GetResStr(ID, 11));
-  L_SET('txt.bf2new',    GetResStr(ID, 12));
-  L_SET('txt.bf2inv',    GetResStr(ID, 13));
-  L_SET('txt.bf2nope',   GetResStr(ID, 14));
+  L_SET('txt.bf2142key',    GetResStr(ID, 8));
+  L_SET('txt.bf2142nskey',  GetResStr(ID, 9));
+  L_SET('txt.bf2142unk',    GetResStr(ID, 10));
+  L_SET('txt.bf2142act',    GetResStr(ID, 11));
+  L_SET('txt.bf2142new',    GetResStr(ID, 12));
+  L_SET('txt.bf2142inv',    GetResStr(ID, 13));
+  L_SET('txt.bf2142nope',   GetResStr(ID, 14));
   // Get Localized strings from resources
   LocalizationFromResource( GetLanguageID );
 end;
@@ -372,7 +372,7 @@ end;
 
  { Battlefield 2 Decryption }
 
-function GetBF2Key(RegKey: String = ''): String;
+function GetBF2142Key(RegKey: String = ''): String;
 var
   s: String;
 begin
@@ -384,13 +384,13 @@ begin
   try
     s := GetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '');
     s := StringReplace(s, c_identhash, '', [rfReplaceAll, rfIgnoreCase]);
-    s := DecryptDataBF2(s);
+    s := DecryptDataBF2142(s);
     Result := UpperCase(s);
   except
   end;
 end;
 
-function GetBF2SFKey(RegKey: String = ''): String;
+function GetBF2142NSKey(RegKey: String = ''): String;
 var
   s: String;
 begin
@@ -402,7 +402,7 @@ begin
   try
     s := GetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '');
     s := StringReplace(s, c_identhash, '', [rfReplaceAll, rfIgnoreCase]);
-    s := DecryptDataBF2(s);
+    s := DecryptDataBF2142(s);
     Result := UpperCase(s);
   except
   end;
@@ -410,7 +410,7 @@ end;
 
  { Battlefield 2 Encryption }
 
-function SetBF2Key(RegKey: String = ''; Key: String = ''): Byte;
+function SetBF2142Key(RegKey: String = ''; Key: String = ''): Byte;
 var
   Hash: String;
 begin
@@ -424,14 +424,14 @@ begin
     Key := BuildRandomKey;
   end;
   try
-    Hash := c_identhash + EncryptDataBF2(Key);
+    Hash := c_identhash + EncryptDataBF2142(Key);
     SetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '', rdString, Hash);
   except
     Result := 1;
   end;
 end;
 
-function SetBF2SFKey(RegKey: String = ''; Key: String = ''): Byte;
+function SetBF2142NSKey(RegKey: String = ''; Key: String = ''): Byte;
 var
   Hash: String;
 begin
@@ -445,7 +445,7 @@ begin
     Key := BuildRandomKey;
   end;
   try
-    Hash := c_identhash + EncryptDataBF2(Key);
+    Hash := c_identhash + EncryptDataBF2142(Key);
     SetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '', rdString, Hash);
   except
     Result := 1;
@@ -646,7 +646,7 @@ begin
     Font.Name  := 'Tahoma';
     Font.Style := [fsBold];
     Transparent := True;
-    Caption := L_GET('txt.bf2key');
+    Caption := L_GET('txt.bf2142key');
   end;
   lblStatic3 := TLabel.Create(Group);
   with lblStatic3 do
@@ -662,7 +662,7 @@ begin
     Font.Name  := 'Tahoma';
     Font.Style := [];
     Transparent := True;
-    Caption := L_GET('txt.bf2stat');
+    Caption := L_GET('txt.bf2142stat');
   end;
   lblStatic4 := TLabel.Create(Group);
   with lblStatic4 do
@@ -678,7 +678,7 @@ begin
     Font.Name  := 'Tahoma';
     Font.Style := [fsBold];
     Transparent := True;
-    Caption := L_GET('txt.bf2sfkey');
+    Caption := L_GET('txt.bf2142nskey');
   end;
   lblStatic5 := TLabel.Create(Group);
   with lblStatic5 do
@@ -694,7 +694,7 @@ begin
     Font.Name  := 'Tahoma';
     Font.Style := [];
     Transparent := True;
-    Caption := L_GET('txt.bf2unk');
+    Caption := L_GET('txt.bf2142unk');
   end;
   { Creating 'apply' button }
   btnApply := TButton.Create(Self);
@@ -934,7 +934,7 @@ begin
   except
     Result := 1;
   end;
-  // Get BF2SF
+  // Get BF2142NS
   try
     Key := UpperCase(BuildRandomKey);
     edt2Key1p.Caption := Copy(Key, 1, 4);
@@ -961,26 +961,26 @@ begin
     ChKey := ChKey + edt1Key5p.Caption;
     if (Length(ChKey) = c_bfkeysize) then
     begin
-      if (ChKey = Self.BF2Key) then
+      if (ChKey = Self.BF2142Key) then
       begin
         lblStatic3.Font.Color := clLime;
-        lblStatic3.Caption := L_GET('txt.bf2act');
+        lblStatic3.Caption := L_GET('txt.bf2142act');
       end else
       begin
         lblStatic3.Font.Color := clBlue;
-        lblStatic3.Caption := L_GET('txt.bf2new');
+        lblStatic3.Caption := L_GET('txt.bf2142new');
       end;
     end else
     begin
       if (Length(ChKey) < 1) then
       begin
         lblStatic3.Font.Color := clDkGray;
-        lblStatic3.Caption := L_GET('txt.bf2nope');
+        lblStatic3.Caption := L_GET('txt.bf2142nope');
         Result := Result + 1;
       end else
       begin
         lblStatic3.Font.Color := clRed;
-        lblStatic3.Caption := L_GET('txt.bf2inv');
+        lblStatic3.Caption := L_GET('txt.bf2142inv');
         Result := Result + 1;
       end;
     end;
@@ -996,26 +996,26 @@ begin
     ChKey := ChKey + edt2Key5p.Caption;
     if (Length(ChKey) = c_bfkeysize) then
     begin
-      if (ChKey = Self.BF2SFKey) then
+      if (ChKey = Self.BF2142NSKey) then
       begin
         lblStatic5.Font.Color := clLime;
-        lblStatic5.Caption := L_GET('txt.bf2act');
+        lblStatic5.Caption := L_GET('txt.bf2142act');
       end else
       begin
         lblStatic5.Font.Color := clBlue;
-        lblStatic5.Caption := L_GET('txt.bf2new');
+        lblStatic5.Caption := L_GET('txt.bf2142new');
       end;
     end else
     begin
       if (Length(ChKey) < 1) then
       begin
         lblStatic5.Font.Color := clDkGray;
-        lblStatic5.Caption := L_GET('txt.bf2nope');
+        lblStatic5.Caption := L_GET('txt.bf2142nope');
         Result := Result + 2;
       end else
       begin
         lblStatic5.Font.Color := clRed;
-        lblStatic5.Caption := L_GET('txt.bf2inv');
+        lblStatic5.Caption := L_GET('txt.bf2142inv');
         Result := Result + 2;
       end;
     end;
@@ -1027,43 +1027,43 @@ end;
 
 function TMainForm.GetKeys: Byte;
 var
-  KeyBF2, KeySF: String;
+  KeyBF2142, KeyBF2142NS: String;
 begin
   Result := 0;
-  // Get BF2
+  // Get BF2142
   try
-    KeyBF2 := GetBF2Key;
-    if (Length(KeyBF2) < c_bfkeysize) then
+    KeyBF2142 := GetBF2142Key;
+    if (Length(KeyBF2142) < c_bfkeysize) then
     begin
       Result := 1;
     end else
     begin
-      SetLength(KeyBF2, c_bfkeysize);
-      Self.BF2Key := KeyBF2;
-      edt1Key1p.Caption := Copy(KeyBF2, 1, 4);
-      edt1Key2p.Caption := Copy(KeyBF2, 5, 4);
-      edt1Key3p.Caption := Copy(KeyBF2, 9, 4);
-      edt1Key4p.Caption := Copy(KeyBF2, 13, 4);
-      edt1Key5p.Caption := Copy(KeyBF2, 17, 4);
+      SetLength(KeyBF2142, c_bfkeysize);
+      Self.BF2142Key := KeyBF2142;
+      edt1Key1p.Caption := Copy(KeyBF2142, 1, 4);
+      edt1Key2p.Caption := Copy(KeyBF2142, 5, 4);
+      edt1Key3p.Caption := Copy(KeyBF2142, 9, 4);
+      edt1Key4p.Caption := Copy(KeyBF2142, 13, 4);
+      edt1Key5p.Caption := Copy(KeyBF2142, 17, 4);
     end;
   except
     Result := 1;
   end;
-  // Get BF2SF
+  // Get BF2142NS
   try
-    KeySF := GetBF2SFKey;
-    if (Length(KeySF) < c_bfkeysize) then
+    KeyBF2142NS := GetBF2142NSKey;
+    if (Length(KeyBF2142NS) < c_bfkeysize) then
     begin
       Result := 2;
     end else
     begin
-      SetLength(KeySF, c_bfkeysize);
-      Self.BF2SFKey := KeySF;
-      edt2Key1p.Caption := Copy(KeySF, 1, 4);
-      edt2Key2p.Caption := Copy(KeySF, 5, 4);
-      edt2Key3p.Caption := Copy(KeySF, 9, 4);
-      edt2Key4p.Caption := Copy(KeySF, 13, 4);
-      edt2Key5p.Caption := Copy(KeySF, 17, 4);
+      SetLength(KeyBF2142NS, c_bfkeysize);
+      Self.BF2142NSKey := KeyBF2142NS;
+      edt2Key1p.Caption := Copy(KeyBF2142NS, 1, 4);
+      edt2Key2p.Caption := Copy(KeyBF2142NS, 5, 4);
+      edt2Key3p.Caption := Copy(KeyBF2142NS, 9, 4);
+      edt2Key4p.Caption := Copy(KeyBF2142NS, 13, 4);
+      edt2Key5p.Caption := Copy(KeyBF2142NS, 17, 4);
     end;
   except
     Result := 2;
@@ -1072,22 +1072,22 @@ end;
 
 function TMainForm.SetKeys: Byte;
 var
-  KeyBF2, KeySF: String;
+  KeyBF2142, KeyBF2142NS: String;
 begin
   Result := 0;
-  // Set BF2
-  KeyBF2 := '';
+  // Set BF2142
+  KeyBF2142 := '';
   try
-    KeyBF2 := KeyBF2 + edt1Key1p.Caption;
-    KeyBF2 := KeyBF2 + edt1Key2p.Caption;
-    KeyBF2 := KeyBF2 + edt1Key3p.Caption;
-    KeyBF2 := KeyBF2 + edt1Key4p.Caption;
-    KeyBF2 := KeyBF2 + edt1Key5p.Caption;
-    if (Length(KeyBF2) = c_bfkeysize) then
+    KeyBF2142 := KeyBF2142 + edt1Key1p.Caption;
+    KeyBF2142 := KeyBF2142 + edt1Key2p.Caption;
+    KeyBF2142 := KeyBF2142 + edt1Key3p.Caption;
+    KeyBF2142 := KeyBF2142 + edt1Key4p.Caption;
+    KeyBF2142 := KeyBF2142 + edt1Key5p.Caption;
+    if (Length(KeyBF2142) = c_bfkeysize) then
     begin
-      if (SetBF2Key('', KeyBF2+#0) > 0)
+      if (SetBF2142Key('', KeyBF2142+#0) > 0)
       then Result := Result + 1
-      else BF2Key := KeyBF2;
+      else BF2142Key := KeyBF2142;
     end else
     begin
       Result := Result + 1;
@@ -1095,19 +1095,19 @@ begin
   except
     Result := Result + 1;
   end;
-  // Set BF2SF
-  KeySF := '';
+  // Set BF2142NS
+  KeyBF2142NS := '';
   try
-    KeySF := KeySF + edt2Key1p.Caption;
-    KeySF := KeySF + edt2Key2p.Caption;
-    KeySF := KeySF + edt2Key3p.Caption;
-    KeySF := KeySF + edt2Key4p.Caption;
-    KeySF := KeySF + edt2Key5p.Caption;
-    if (Length(KeySF) = c_bfkeysize) then
+    KeyBF2142NS := KeyBF2142NS + edt2Key1p.Caption;
+    KeyBF2142NS := KeyBF2142NS + edt2Key2p.Caption;
+    KeyBF2142NS := KeyBF2142NS + edt2Key3p.Caption;
+    KeyBF2142NS := KeyBF2142NS + edt2Key4p.Caption;
+    KeyBF2142NS := KeyBF2142NS + edt2Key5p.Caption;
+    if (Length(KeyBF2142NS) = c_bfkeysize) then
     begin
-      if (SetBF2SFKey('', KeySF+#0) > 0)
+      if (SetBF2142NSKey('', KeyBF2142NS+#0) > 0)
       then Result := Result + 2
-      else BF2SFKey := KeySF;
+      else BF2142NSKey := KeyBF2142NS;
     end else
     begin
       Result := Result + 2;
