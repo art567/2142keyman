@@ -370,7 +370,7 @@ begin
   Result := Copy(Hash, 1, Size);
 end;
 
- { Battlefield 2 Decryption }
+ { Battlefield 2142 Decryption }
 
 function GetBF2142Key(RegKey: String = ''): String;
 var
@@ -408,7 +408,7 @@ begin
   end;
 end;
 
- { Battlefield 2 Encryption }
+ { Battlefield 2142 Encryption }
 
 function SetBF2142Key(RegKey: String = ''; Key: String = ''): Byte;
 var
