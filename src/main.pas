@@ -537,7 +537,7 @@ var
 begin
   { Creating form }
   inherited CreateNew(nil, 0);
-  SetTitle( Format(L_GET('app.title')+' Â© Tema567', [L_GET('app.name'), L_GET('app.ver')]) );
+  SetTitle( Format(L_GET('app.title')+' © Tema567', [L_GET('app.name'), L_GET('app.ver')]) );
   Self.BorderStyle := bsDialog;
   Self.BorderIcons := [];
   Self.Position := poDesktopCenter;
