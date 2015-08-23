@@ -92,16 +92,16 @@ var
 const
   c_identhash     = 'x9392';
   c_bfkeysize     = 20; {4 char x 5 parts}
-  {c_app_name      = 'Battlefield 2 :: Key Manager';
+  {c_app_name      = 'Battlefield 2142 :: Key Manager';
   c_app_title     = '%s %s';
   c_app_ver       = 'v1.0';
   c_btn_apply     = 'Apply';
   c_btn_rand      = 'Random';
   c_btn_close     = 'Close';
-  c_txt_title     = 'Battlefield 2 :: Key Manager';
+  c_txt_title     = 'Battlefield 2142 :: Key Manager';
   c_txt_desc      = 'Hello, i''ll provide you some features to enter'#13#10'your license CD-KEY or key that you bought in Origin/Steam store.'#13#10#13#10'If you don''t have a license key then press ''Random'','#13#10'this allow you playing on non-ranked servers.';
-  c_txt_bf2142key    = 'Please enter your Battlefield 2 license key below';
-  c_txt_bf2142nskey  = 'Please enter your Battlefield 2 Special Forces license key below';
+  c_txt_bf2142key    = 'Please enter your Battlefield 2142 key below';
+  c_txt_bf2142nskey  = 'Please enter your Battlefield 2142 Northern Strike key below';
   c_txt_bf2142unk    = 'The key state is unknown';
   c_txt_bf2142act    = 'This key is already active';
   c_txt_bf2142new    = 'You need to press ''Apply'' to actualize this key';
@@ -537,7 +537,7 @@ var
 begin
   { Creating form }
   inherited CreateNew(nil, 0);
-  SetTitle( Format(L_GET('app.title')+' © Tema567', [L_GET('app.name'), L_GET('app.ver')]) );
+  SetTitle( Format(L_GET('app.title')+' Â© Tema567', [L_GET('app.name'), L_GET('app.ver')]) );
   Self.BorderStyle := bsDialog;
   Self.BorderIcons := [];
   Self.Position := poDesktopCenter;
