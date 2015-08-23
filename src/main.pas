@@ -379,7 +379,7 @@ begin
   Result := '';
   if (RegKey = '') then
   begin
-    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2\ergc';
+    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2142\ergc';
   end;
   try
     s := GetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '');
@@ -397,7 +397,7 @@ begin
   Result := '';
   if (RegKey = '') then
   begin
-    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2 Special Forces\ergc';
+    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2142 Northern Strike\ergc';
   end;
   try
     s := GetRegistryData(HKEY_LOCAL_MACHINE, RegKey, '');
@@ -417,7 +417,7 @@ begin
   Result := 0;
   if (RegKey = '') then
   begin
-    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2\ergc';
+    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2142\ergc';
   end;
   if (Key = '') then
   begin
@@ -438,7 +438,7 @@ begin
   Result := 0;
   if (RegKey = '') then
   begin
-    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2 Special Forces\ergc';
+    RegKey := 'SOFTWARE\Electronic Arts\EA Games\Battlefield 2142 Northern Strike\ergc';
   end;
   if (Key = '') then
   begin
